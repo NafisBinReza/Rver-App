@@ -1,0 +1,96 @@
+type User @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  username: String!
+  email: String!
+  orders: [Order] @connection(keyName: "byUser", fields: ["id"])
+  vehicle: Vehicle @connection(fields: ["id"])
+  bookmarks: [Destination] @connection(keyName: "byUser", fields: ["id"])
+  telephone: String!
+}
+
+type Destination @model
+  @key(name: "byUser", fields: ["userId"])
+{
+  id: ID!
+  userId: ID!
+  name: String!
+  latitude: Float!
+  longitude: Float!
+  address: String!
+}
+
+type Vehicle @model 
+  @key(name: "byUser", fields: ["userId"])
+{
+  id: ID!
+  type: String!
+  latitude: Float
+  longitude: Float
+  heading: Float
+  orders: [Order] @connection(keyName: "byVehicle", fields: ["id"])
+  userId: ID!
+  user: User! @connection(fields: ["userId"])
+  isActive: Boolean!
+  licensePlate: String!
+}
+
+type Order @model
+  @key(name: "byUser", fields: ["userId"])
+  @key(name: "byVehicle", fields: ["vehicleId", "createdAt"])
+{
+  id: ID!
+  createdAt: String!
+  completedAt: String
+
+  vehicleType: String!
+  
+  originLatitude: Float!
+  originLongitude: Float!
+
+  destinationLatitude: Float!
+  destinationLongitude: Float!
+
+  originAddress: String!
+  destinationAddress: String!
+
+  userId: ID!
+  user: User @connection(fields: ["userId"])
+
+  vehicleId: ID!
+  vehicle: Vehicle @connection(fields: ["vehicleId"])
+
+  status: String!
+
+  fareId: ID!
+  fare: Fare @connection(fields: ["fareId"])
+}
+
+type Fare @model{
+  id: ID!
+  f_d: Float!
+  m_s: Float!
+  f_t: Float!
+  base: Float!
+  m_w: Float!
+  orderId: ID!
+  order: Order! @connection(fields: ["orderId"])
+}
+
+type Log @model{
+  id: ID!
+  createdAt: String!
+  userId: ID!
+  user: User! @connection(fields: ["userId"])
+  vehicle200mIds: [ID!]
+  vehicle500mIds: [ID!]
+  orderId: ID!
+  order: Order! @connection(fields: ["orderId"])
+}
+
+type Subscription{
+  onOrderUpdated(id: ID!): Order @aws_subscribe(mutations: ["updateOrder"])
+  onOrderCreated: Order @aws_subscribe(mutations: ["createOrder"])
+  onVehicleUpdated(id: ID!): Vehicle @aws_subscribe(mutations: ["updateVehicle"])
+}

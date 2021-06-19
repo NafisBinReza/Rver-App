@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "rver",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authrvera6cc0829a6cc0829",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

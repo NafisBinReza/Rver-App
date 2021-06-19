@@ -1,0 +1,88 @@
+{
+    "identityPoolName": "rvera6cc0829_identitypool_a6cc0829",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "rvera6cc0829",
+    "userPoolName": "rvera6cc0829_userpool_a6cc0829",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": true,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers"
+    ],
+    "requiredAttributes": [
+        "email",
+        "family_name",
+        "given_name",
+        "phone_number"
+    ],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "userpoolClientLambdaRole": "rvera6a6cc0829_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "a6cc0829",
+    "resourceName": "rvera6cc0829a6cc0829",
+    "authSelections": "identityPoolAndUserPool",
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{\n  \"PostConfirmation\": [\n    \"custom\"\n  ],\n  \"PreSignup\": [\n    \"custom\"\n  ]\n}",
+    "hostedUI": false,
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "rvera6cc0829a6cc0829PostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "rvera6cc0829a6cc0829PreSignup",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ]
+}
